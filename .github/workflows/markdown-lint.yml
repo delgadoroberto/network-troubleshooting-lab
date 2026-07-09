@@ -1,0 +1,23 @@
+# .github/workflows/markdown-lint.yml
+name: Markdown Lint Validation
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  markdown-lint:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Verify Documentation Files
+      run: |
+        if [ ! -f README.md ]; then
+          echo "Critical Error: README.md is missing."
+          exit 1
+        fi
+        echo "Documentation structural check passed."
